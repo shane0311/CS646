@@ -132,7 +132,7 @@ def create_log_path(log_path):
 def main():
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", default="./model_path", type=str)
+    parser.add_argument("--model_name", default="Qwen/Qwen2.5-1.5B-Instruct", type=str)
     parser.add_argument("--orig_path", default="./kr_data/datasets/nq/orig_dev_filtered.json", type=str)
     parser.add_argument("--counter_path", default="./kr_data/datasets/nq/conflict_dev_filtered.json", type=str)
     parser.add_argument("--schema", default="base", type=str, help="Choose from the following prompting templates: base, attr, instr, opin, instr+opin.")
@@ -143,6 +143,7 @@ def main():
                     help='ck, base_rag, base_no_rag')
     parser.add_argument('--alpha', type=float, default=0.5)
     parser.add_argument('--adaptive', type=bool, default=False)
+    parser.add_argument('--log_path', type=str, default="/home/pohsiangwang_umass_edu/CK-PLUG/log/eval_NQ_Qwen2.5-1.5B_log.json")
     
     args = parser.parse_args()
     with open(args.orig_path, 'r') as fh:
@@ -151,8 +152,8 @@ def main():
         counter_examples = json.load(fh)
     print('Loaded {} instances.'.format(len(counter_examples)))
 
-    orig_examples = orig_examples[600:800]
-    counter_examples = counter_examples[600:800]
+    #orig_examples = orig_examples[600:800]
+    #counter_examples = counter_examples[600:800]
 
     model_name = args.model_name
     num_gpus = args.num_gpus
